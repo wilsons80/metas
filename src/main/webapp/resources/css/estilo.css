@@ -1,0 +1,560 @@
+/*=============================================*/
+/*  Configuração Geral                         */
+/*=============================================*/
+/*
+		border-width: 2px;
+		border-style: solid;
+		border-color: #D1D7BD;	
+*/
+
+	div[id="formSignatario:growlCenter_container"] {
+	    position:absolute;
+	    top:200px;
+	    left:40%;
+	}
+
+
+	body{
+		margin: 0;  	
+		padding: 0;
+		line-height: 10px !important;
+	}
+	
+	/*=============================================*/
+	#divMain{
+		margin: 5px auto;  	
+		width: 70%;
+		float:inherit;
+		
+		/*
+		border-width: 1px;
+		border-style: double;
+		border-color: #D1D7BD;
+		*/
+		
+	}
+	
+	#divRodape{
+		margin: 5px auto;  	
+		width: 70%;
+		float:inherit;
+	}
+	
+	
+	/*=============================================*/
+	#divLogo{
+		width:100%;
+	}
+	#divLogo img{
+		width:100%;
+	}
+	
+	
+	/*=============================================*/
+	#divNav{
+		max-width: 100%;
+	}
+	
+	.seletorCertificado{
+		height: 18px;
+		float: right;
+		width: 400px;
+		
+		font-size: 11px;
+		font-weight: bold;
+		display: inline;
+		
+		text-align: left;
+		margin:0px;
+		
+		padding-top:1px;
+	}
+	
+	input[type="text"]{
+		height: 12px !important;
+		font-size: 12px;
+		font-weight: normal;
+		text-align: left;
+		
+		margin-bottom:0px !important;
+	}
+	
+	/*
+	input[type="submit"]{
+		height: 22px;
+		font-size: 12px;
+		font-family: fantasy;
+		font-weight: normal;
+		text-align: left;
+	}
+	*/
+
+	.imputText{
+		width: 100%;
+	}
+	
+	.fontConteudo{
+		font-size: 11px;
+		height: 11px;
+		display: inline;
+	}
+	
+
+	.painelHeader{
+		font-style: oblique;
+		font-weight: bold;
+		
+		height: 16px;
+		text-align:left;
+	}
+	
+
+	.ui-datatable .ui-datatable-data .even-row td{  
+           background-color:#EEDD82;  
+    }  
+ 
+    .ui-datatable .ui-datatable-data .odd-row td{  
+           background-color:#FFFACD;  
+    }
+    
+    .imagemExcluir{
+    	background-image: url("../resources/img/icone_lixeira.png") !important;  
+		width: 100%;height: 100%;  
+    	float:left;  
+    	margin-right: 0px; 
+    	text-align: center;   	
+    }
+    
+    .getImageVetor{
+    	background-position:; 
+    	background-image: url("../resources/img/glyphicons-halflings.png");
+    }
+
+/*=============================================*/
+/*  Configuração DIV Usuario                   */
+/*=============================================*/
+	#divUsuario{
+		margin: 1px;
+		max-width: 100%;
+		/*height:74px;*/
+	}
+	
+	.seletor{
+		width: 150px;
+		height: 17px;
+	
+		font-size: 11px;
+		display: inline;
+	}
+
+
+	.ui-panel .ui-panel-content {
+	    padding: 0.5em 0em !important;
+	}
+
+/*=============================================*/
+/*  Configuração DIV Documentos                */
+/*=============================================*/
+	#divDocumentos{
+		max-width:100%;
+		/*height: 580px;*/
+		height: 100%;
+	}
+		
+	.ui-tabs.ui-tabs-top > .ui-tabs-nav{
+		padding: 0.0em 0.0em 0px !important;
+	}
+	
+/*=============================================*/
+/*  Configuração DIV Signatário                */
+/*=============================================*/
+
+	.painelSignatario{
+		width: 100%;
+		
+		margin-left: 0px;
+		padding-left: 0px;
+	}
+	
+	.larguraPainel{
+		width: 99.8%;
+	}
+	
+	.gridSignatario{
+		width: 100%;
+	}
+	
+	.cssColuna01Sig{
+		width: 13%;
+	}
+	.cssColuna02Sig{
+		width: 30%;
+	}
+	.cssColuna03Sig{
+		width: 57%;
+	}
+	
+	.botaoTabaleSignatario{
+		width: 100%;
+		font-size: 9px !important;
+	}
+	
+	.ui-autocomplete{
+		width: 96% !important;
+	}
+	
+	.nomeSignatario input{
+		width: 99% !important;
+	}
+	
+	/*	
+	#txtCPF{
+		width: 90%;	
+	}
+	
+	#txtNome{
+		width: 58%;
+	}
+	
+	
+	.botao{
+		width: 80px;
+		height: 22px;
+		font-size: 11px;
+		float: right;
+	}
+	
+	
+	#btnAdicionar{
+		width: 63px;
+	}
+	#btnPesquisar{
+		width: 63px;
+	}
+	*/
+
+	.colCpf  { width: 20%;}  
+	.colNome { width: 80%;}
+
+
+	.ui-tabs .ui-tabs-panel {
+	    padding: 0em 0em !important;
+	}
+	
+	.ui-datatable-resizable table {
+		table-layout: auto !important;
+	}
+
+/*=============================================*/
+/*  Configuração DIV Inclusao Documentos       */
+/*=============================================*/
+
+	.painelInclusaoDocumentos{
+		width: 100%;
+	}
+
+	/*
+	#txtArquivo{
+		width: 500px;
+	}
+	*/
+	
+	/*
+	#txtDescArquivo{
+		width: 360px;
+	}
+
+	
+	#btnProcurar{
+		text-align: center;
+		width: 110px;
+		vertical-align: top;
+	}
+	
+	#btnIncluirDoc{
+		text-align: left;
+		width: 110px;
+	}
+	*/
+
+
+	.colGripAvulso01{
+		width: 20%;
+	}
+	.colGripAvulso02{
+		width: 35%;
+	}
+
+
+
+/*=============================================*/
+/*  Configuração DIV Documentos Cadastrados    */
+/*=============================================*/
+
+	.painelDocumentosCadastrados{
+		width: 99.6%;
+		float:left;	
+	}
+
+	.gridDataPesquisa{
+		width: 30%;
+		float:left;
+		
+	}
+	.tabelaRadioButton{
+		width: 100%;
+		height:90%;
+		float:right;
+		padding: 2px;
+	}
+	.radioConf{
+		width: 18px;
+		text-align: center;
+		vertical-align: top;
+	}
+
+	.divTabDisponivelAssinar{
+		max-width: 100%;
+	}
+	
+	.divTabRejeitados{
+		max-width: 100%;
+	}
+	.divTabDocCDSIS{
+		max-width: 100%;
+	}
+	.divTabAssinados{
+		max-width: 100%;
+	}
+	.divOutrosSignatarios{
+		max-width: 100%;
+	}
+	
+	
+	#divBotoes{
+		height: 35px;
+	}
+	
+	#btnMarcarTodos{
+		width: 80px;
+		margin-left: 5px;
+	}
+
+	#btnIncluirDoc{
+		margin-left: 5px;
+	}
+
+
+	.botao{
+		width: 80px;
+		margin-left: 5px;
+	} 
+
+	.btnAssinar{
+		width: 80px;
+		margin-left: 5px;
+	} 
+	.btnExcluir{
+		width: 80px;
+		margin-left: 5px;
+	}    
+	.btnRejeitar{
+		width: 80px;
+		margin-left: 5px;
+	}   
+	.btnVisualizar{
+		width: 80px;
+		margin-left: 5px;
+	} 
+	.btnImprimir{
+		width: 80px;
+		margin-left: 5px;
+	}   
+	.btnPerc{
+		width: 80px;
+		margin-left: 5px;
+	}       
+
+	.semBorda tr, .semBorda td {  
+	    border: none !important;  
+	}
+
+	.colImgPdf{
+		width: 10%;
+	}
+	
+	
+	.col01DialogEdicaoAvulso{
+		width: 49%;
+	}
+/* ================================================================== */
+/*                      Documentos de Sistemas                        */                 
+/* ================================================================== */ 
+
+	.seletorTipoDocSistemas{
+		width: 20%;
+	}
+	
+	.txtNumero{width: 75%;}
+	.txtAno   {width: 75%;}
+	.txtVara  {width: 65%;}
+	.txtRegiao{width: 75%;}
+	.txtSeq   {width: 75%;}
+	.txtDV    {width: 85%;}
+	
+	.column1{width: 10%;}
+    .column2{width: 10%;}
+    .column3{width:  8%;}	
+    .column4{width: 10%;}
+    .column5{width: 10%;}
+    .column6{width: 10%;}
+	
+	.coluna1TabProcurar{
+		width: 57%;height:auto;
+	}
+	
+	.colunaTabTipoDoc{
+		width: 57%;height:auto;
+	}
+	
+	.incluirDocSistema{
+		margin-left: 4px;
+	}
+	
+	.ui-panelgrid .ui-panelgrid-cell{
+		border-width: 0px !important;
+		padding: 1px 1px !important;
+	}
+	
+	.ui-panelgrid{
+		border-collapse: inherit !important;
+	}
+	
+
+	
+/* ================================================================== */
+/*                      Formulário de Login                           */                 
+/* ================================================================== */ 
+	.msg1Login 
+	 {
+	    padding: 10px;
+	    font-family: Cambria;
+	    font-size: 21px !important;
+	    color: #000000;
+	    text-align: center;
+	 }
+	
+	#login-dialog {
+		width: 320px;
+		margin: auto;
+		margin-top: 180px;
+	}
+	
+	.grid-login {
+		/*background-color: #E5EAD3;*/
+		/*border-radius: 8px;
+		border: 1px solid #ccc;*/
+		
+		margin-top: 8px;
+		padding: 10px;
+		width: 100%;
+	
+		border-width: 2px;
+		border-style: double;
+		border-color: #D1D7BD;
+		
+	}
+
+	
+	.borda{
+		border: 1px solid #A8A8A8;
+		width: 100%;
+	}
+
+
+/* ================================================================== */
+/*                      Media                                         */                 
+/* ================================================================== */ 
+
+                  /*menor que ou igual a*/
+@media screen and (max-width: 768px) {
+	body {
+		font-size: 80%;
+	}
+	
+	#divMain{
+		margin: 5px auto;  	
+		width: 100%;
+		float:inherit;
+	}
+
+	.seletorCertificado{
+		width: 295px;
+	}	
+	
+	.painelSignatario{
+		width: 100%;	
+	}
+	.painelInclusaoDocumentos{
+		width: 100%;
+	}	
+	.painelDocumentosCadastrados{
+		width: 100%;
+	}	
+	
+}
+
+                  /*maior ou igual a*/
+@media screen and (min-width: 768px) {
+	body {
+		font-size: 13px;
+	}
+
+	#divMain{
+		margin: 5px auto;  	
+		width: 70%;
+		float:inherit;
+	}
+		
+}
+
+
+
+
+/* ================================================================== */
+/*                      Configuração do Menu                          */                 
+/* ================================================================== */
+ .ui-widget {  
+       font-size: 11px !important;
+       /* margin: 0px 0px; */   
+    }  
+    
+/*
+.ui-menubar  {  
+    font-weight: normal !important;  
+    font-size: 11px;
+    height: 11px; 
+}  
+  
+.ui-menu-list  {  
+    font-weight: normal !important;  
+    font-size: 16px; 
+    vertical-align: top; 
+    height: 12px;
+}  
+.ui-menuitem  {  
+    font-weight: normal !important;  
+    font-size: 6px; 
+    
+    height: 12px !important;
+    margin: 0px 0px;
+}  
+.ui-menuitem-link  {  
+    font-weight: normal !important;  
+    height: 12px  !important;
+}  
+.ui-menuitem-text {  
+    font-weight: normal !important;
+    font-size: 12px  !important;
+}
+*/		

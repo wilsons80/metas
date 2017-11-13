@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+			    xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+		<!-- ////////////////////////////////////////////////// -->
+		<!--     Executada sempre que a página for renderizada  -->
+		<!--     É a primeira ação a ser executada.             -->
+		<!-- ////////////////////////////////////////////////// -->
+		<f:metadata>
+			<f:viewAction action="#{metaBean.initValores}"/>
+		</f:metadata>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define a Logo do site                 -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="logo">
+			<div id="divLogo">
+				<h:graphicImage id="imgLogo" library="imagens" name="cab_logo.png" />
+			</div>
+		</ui:define>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define o Menu                         -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="nav">
+			<div id="divNav">
+				<h:form id="formMenu">
+					<p:toolbar>
+						<f:facet name="left">
+							<p:commandButton value="Voltar" 
+							                 icon="ui-icon-arrowreturnthick-1-w" 
+							                 action="#{metaBean.enviarPagMetas}"/>
+						</f:facet>
+
+						<f:facet name="right">
+							<p:commandButton value="Sair" 
+							                 icon="ui-icon-closethick" 
+							                 action="#{loginBean.logout}" 
+							                 title="Sair"/>
+						</f:facet>
+					</p:toolbar>
+				</h:form>
+			</div>
+		</ui:define>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define o conteúdo                     -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="conteudo">
+			<div id="divConteudo">
+			
+				<h:form id="formMeta">
+					<p:messages id="msn" autoUpdate="true"/>
+					
+					<p:panel id="painelMeta" style="padding-top: 10px !important;" >
+					
+						<p:toolbar id="toolbarMeta">
+							<f:facet name="left">
+				    			<p:commandButton id="btnIncluirMeta" 
+				    			                 icon="ui-icon-document" 
+				    			                 process="@this"
+				    			                 action="#{manterMetasBean.prepararNovoCadastroMeta}" 
+				    			                 value="Novo"
+				    			                 update="meta-dialog"
+									  			 oncomplete="PF('edicaoMetaDialog').show()">
+				    			      <p:resetInput target="meta-dialog"/>           
+				    			</p:commandButton>
+
+								<span class="ui-separator">
+			                		<span class="ui-icon ui-icon-grip-dotted-vertical" />
+			            		</span>
+			            		
+			            		<p:commandButton icon="ui-icon-pencil" 
+			            		                 title="Editar"
+						            			 process="@this" 
+												 update="meta-dialog"
+						            			 oncomplete="PF('edicaoMetaDialog').show()"
+						            		     disabled="#{manterMetasBean.metaSelecionada == null}">
+			            			<p:resetInput target="meta-dialog"/>
+			            			
+			            			<f:setPropertyActionListener value="#{manterMetasBean.metaSelecionada}"
+			            			                             target="#{manterMetasBean.metaEdicao}" /> 
+			            		</p:commandButton>
+			            		
+				    			<p:commandButton id="btnExcluirMeta"  
+				    			                 title="Excluir"
+				    			                 icon="ui-icon-trash" 
+				    			                 process="@this"
+				    			                 action="#{manterMetasBean.excluirMeta}"  
+				    			                 update="tabMetasEdicao"
+				    			                 disabled="#{manterMetasBean.metaSelecionada == null}">
+				            			<f:setPropertyActionListener value="#{manterMetasBean.metaSelecionada}"
+				            			                             target="#{manterMetasBean.metaEdicao}" /> 
+
+										<p:confirm icon="ui-icon-alert" 
+										           header="Exclusão de Meta."  
+		            		                       message="Deseja excluir a meta selecionado?"/>
+				    			</p:commandButton>
+
+							</f:facet>
+						</p:toolbar>
+		    			
+						<p:dataTable id="tabMetasEdicao"
+						             var="meta" 
+						             value="#{manterMetasBean.listaMetas}"
+									 rows="10" 
+									 paginator="true" 
+									 styleClass="fontConteudo" 
+									 paginatorPosition="bottom"
+									 emptyMessage="Lista de metas..."
+									 scrollHeight="80"
+									 selectionMode="single"
+									 selection="#{manterMetasBean.metaSelecionada}"
+									 rowKey="#{meta.codigo}">
+
+							   <p:ajax event="rowSelect"   listener="#{manterDetalheBean.onRowSelect}"    update=":formMeta:toolbarMeta :formDetalhe:btnNovoDetalhe :formDetalhe:tabDetalheEdicao"/>
+							   <p:ajax event="rowUnselect" listener="#{manterDetalheBean.onRowUnselect}"  update=":formMeta:toolbarMeta :formDetalhe:btnNovoDetalhe :formDetalhe:tabDetalheEdicao"/>
+									 
+							   <p:column headerText="Descrição" style="width:90%; padding:0;">
+					               <h:outputText value="#{meta.descricao}"/>
+							   </p:column>  
+							   
+							   <p:column headerText="Periodicidade" width="10%"> 
+							      <h:outputText value="#{meta.periodicidade}"/>   
+							   </p:column>
+							   
+			  			</p:dataTable>
+					</p:panel>
+					
+					<p:dialog header="Nova Meta" widgetVar="edicaoMetaDialog" id="meta-dialog"
+					          resizable="false" modal="true" closeOnEscape="true">
+					          
+					     <p:messages id="msgs-dialog"/>
+					     <p:defaultCommand target="salvar-button-meta" scope="meta-dialog"/>
+					          
+					     <h:panelGrid columns="1" id="painel-dialog">
+					     	<p:outputLabel value="Descrição" for="descricao"/>
+					     	<p:inputTextarea id="descricao" cols="60" rows="7" maxlength="4000" value="#{manterMetasBean.metaEdicao.descricao}"/>
+					     	
+					     	<p:outputLabel value="Periodicidade" for="periodicidade"/>
+					     	<p:inputText id="periodicidade" size="10" maxlength="1" value="#{manterMetasBean.metaEdicao.periodicidade}"/>
+		
+							<p:outputLabel value=""/>
+							<p:commandButton value="Salvar" id="salvar-button-meta" action="#{manterMetasBean.salvar}" 
+							                 process="meta-dialog" update="msgs-dialog painel-dialog tabMetasEdicao"
+							                 oncomplete="if(!args.validationFailed) PF('edicaoMetaDialog').hide()"/>
+					     </h:panelGrid>     
+					</p:dialog>
+					
+				</h:form>	
+				
+				
+				
+				<h:form id="formDetalhe">
+					<p:panel id="painelDetalhe" style="padding-top: 10px !important;">
+					
+						<p:toolbar id="toolbarDetalhe">
+							<f:facet name="left">
+							
+								<p:commandButton id="btnNovoDetalhe"
+								                 value="Novo"
+								                 icon="ui-icon-document"
+								                 process="@this"
+				    			                 update="detalhe-dialog"
+				    			                 action="#{manterDetalheBean.prepararNovoCadastro}"
+									  			 oncomplete="PF('edicaoDetalheDialog').show()"
+								                 disabled="#{manterMetasBean.metaSelecionada == null}">
+									<p:resetInput target="detalhe-dialog"/>
+								</p:commandButton>
+
+								<span class="ui-separator">
+			                		<span class="ui-icon ui-icon-grip-dotted-vertical" />
+			            		</span>
+
+			            		<p:commandButton icon="ui-icon-pencil" 
+			            		                 title="Editar"
+						            			 process="@this" 
+												 update="detalhe-dialog"
+						            			 oncomplete="PF('edicaoDetalheDialog').show()"
+						            		     disabled="#{manterDetalheBean.detalheSelecionado == null}">
+			            			<p:resetInput target="detalhe-dialog"/>
+			            			
+			            			<f:setPropertyActionListener value ="#{manterDetalheBean.detalheSelecionado}"
+			            			                             target="#{manterDetalheBean.detalheEdicao}" /> 
+			            		</p:commandButton>
+			            		
+				    			<p:commandButton id="btnExcluirDetalhe"  
+				    			                 title="Excluir"
+				    			                 icon="ui-icon-trash" 
+				    			                 process="@this"
+				    			                 action="#{manterDetalheBean.excluirDetalhe}"  
+				    			                 update="tabDetalheEdicao toolbarDetalhe"
+				    			                 disabled="#{manterDetalheBean.detalheSelecionado == null}">
+
+				            			<f:setPropertyActionListener value ="#{manterDetalheBean.detalheSelecionado}"
+				            			                             target="#{manterDetalheBean.detalheEdicao}" /> 
+				    			                 
+										<p:confirm icon="ui-icon-alert" 
+										           header="Exclusão de Detalhe."  
+		            		                       message="Deseja excluir o item selecionado?"/>
+				    			</p:commandButton>
+															
+							</f:facet>
+						</p:toolbar>
+
+						<p:dataTable id="tabDetalheEdicao"
+						             var="detalhe" 
+						             value="#{manterDetalheBean.listaDetalhes}"
+									 rows="20" 
+									 paginator="true" 
+									 styleClass="fontConteudo" 
+									 paginatorPosition="bottom"
+									 emptyMessage="Lista de detalhes..."
+									 scrollHeight="80"
+									 selectionMode="single"
+									 selection="#{manterDetalheBean.detalheSelecionado}" 
+									 rowKey="#{detalhe.codigo}">
+
+							   <p:ajax event="rowSelect"   update=":formDetalhe:toolbarDetalhe :formDetalhe:btnNovoDetalhe"/>
+							   <p:ajax event="rowUnselect" update=":formDetalhe:toolbarDetalhe :formDetalhe:btnNovoDetalhe"/>
+									 
+							   <p:column headerText="Código" style="width:10%; padding:0;">
+					               <h:outputText value="#{detalhe.codigo}"/>
+							   </p:column>  
+									 
+							   <p:column headerText="Descrição" style="width:80%; padding:0;">
+					               <h:outputText value="#{detalhe.descricao}"/>
+							   </p:column>  
+							   
+							   <p:column headerText="Conexão" width="10%"> 
+							      <h:outputText value="#{detalhe.conexao}"/>   
+							   </p:column>
+
+			  			</p:dataTable>
+					
+					
+						<p:dialog header="Formulário de Detalhe" 
+						          widgetVar="edicaoDetalheDialog" 
+						          id="detalhe-dialog"
+						          resizable="false" 
+						          modal="true" 
+						          closeOnEscape="true">
+						          
+						     <p:messages id="msgs-dialog"/>
+						          
+						     <h:panelGrid columns="1" id="painel-dialog">
+
+						     	<p:outputLabel value="Código" for="codigo"/>
+						     	<p:inputText id="codigo" size="40" maxlength="40" value="#{manterDetalheBean.detalheEdicao.codigo}"/>
+
+						     	<p:outputLabel value="Descrição" for="descricao"/>
+						     	<p:inputText id="descricao" value="#{manterDetalheBean.detalheEdicao.descricao}" style="width:97%"/>
+						     	
+								<p:outputLabel value="Conexao - DS"/>
+								<p:selectOneMenu value="#{manterDetalheBean.detalheEdicao.conexao}">
+									<f:selectItems value="#{manterDetalheBean.listaConexaoDS}"/>
+								</p:selectOneMenu>
+			
+						     	<p:outputLabel value="Consulta" for="consulta"/>
+						     	<p:inputTextarea id="consulta" cols="100" rows="20" value="#{manterDetalheBean.detalheEdicao.consultaSql}" autoResize="false" />
+
+								<p:outputLabel value=""/>
+								<p:commandButton value="Salvar" id="salvar-button-detalhe" action="#{manterDetalheBean.salvar}" 
+								                 process="detalhe-dialog" update="msgs-dialog painel-dialog tabDetalheEdicao toolbarDetalhe"
+								                 oncomplete="if(!args.validationFailed) PF('edicaoDetalheDialog').hide()"/>
+						     </h:panelGrid>     
+						</p:dialog>
+					
+					</p:panel>
+				</h:form>				
+			</div>
+		</ui:define>
+
+</ui:composition>

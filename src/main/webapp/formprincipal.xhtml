@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+			    xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+		<!-- ////////////////////////////////////////////////// -->
+		<!--     Executada sempre que a página for renderizada  -->
+		<!--     É a primeira ação a ser executada.             -->
+		<!-- ////////////////////////////////////////////////// -->
+		<f:metadata>
+			<f:viewAction action="#{metaBean.initValores}"/>
+		</f:metadata>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define a Logo do site                 -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="logo">
+			<div id="divLogo">
+				<h:graphicImage id="imgLogo" library="imagens" name="cab_logo.png" />
+			</div>
+		</ui:define>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define o Menu                         -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="nav">
+			<div id="divNav">
+				<h:form id="formMenu">
+					<p:toolbar>
+						<f:facet name="left">
+							<p:commandButton value="Editar Metas" 
+							                 icon="ui-icon-pencil" 
+							                 action="#{manterMetasBean.enviarPagManter}"
+							                 rendered="#{loginBean.getPermissaoAcesso('mn_editar_metas')}"/>
+						</f:facet>
+
+						<f:facet name="right">
+							<p:commandButton value="Sair" 
+							                 icon="ui-icon-closethick" 
+							                 action="#{loginBean.logout}" 
+							                 title="Sair"/>
+						</f:facet>
+					</p:toolbar>
+				</h:form>
+			</div>
+		</ui:define>
+
+
+		<!--////////////////////////////////////// -->
+		<!-- Define o conteúdo                     -->
+		<!--////////////////////////////////////// -->
+		<ui:define name="conteudo">
+		
+			<div id="divConteudo">
+				
+				<h:form id="formMeta">
+					<p:messages id="msn" autoUpdate="true"/>
+					
+					<p:panel header="Metas Estatísticas - Tribunal Regional do Trabalho da 10ª Região" style="padding-top: 10px !important;" >
+						<p:panelGrid columns="1">
+							<p:outputLabel value="Escolha o Tipo de Meta:"/>
+							<p:selectOneMenu id="seletorEstItem" value="#{metaBean.codigoMeta}">
+				                <f:selectItems value="#{metaBean.listaEstItem}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo.codigo}" />
+				                <p:ajax event="change" listener="#{metaBean.mostrarParametro}" update="panelParam 
+				                                                                                       gridParam
+				                                                                                       :formDetalhe:exportarDetalhe 
+				                                                                                       :formDetalhe:tabelaDetalheMetas"/>
+				            </p:selectOneMenu>
+				            
+							<p:outputLabel value=""/>
+							<p:outputLabel value=""/>
+							
+							<h:panelGroup id="panelParam" >
+								<p:panelGrid id="gridParam" columns="3" rendered="#{!metaBean.habilitarParametro}" >
+						            <p:outputLabel value="Informe o periodo:"  />
+
+					     			<p:inputMask id="data-param" 
+					     			             mask="99/9999" 
+					     			             size="14" 
+					     			             value="#{metaBean.parametro}"
+					     			             title="Informe o periodo no formato (MM/YYYY)"/>
+
+					     			<p:commandButton id="btnPesquisar"
+					     			                 value="Pesquisar" 
+					     			                 styleClass="botao" 
+					     			                 actionListener="#{metaBean.pesquisar}"
+					     			                 process="@form" 
+					     			                 update=":formDetalhe:exportarDetalhe
+					                                         :formDetalhe:tabelaDetalheMetas" />
+								</p:panelGrid>
+							</h:panelGroup>				            
+			     			
+						</p:panelGrid>
+					</p:panel>
+				</h:form>	
+				
+			    <p:blockUI block="formMeta" trigger="formMeta:btnPesquisar">
+					<p:panelGrid columns="2">
+						<p:graphicImage library="imagens" name="ajax-loader.gif" style="height:18px"/>
+						<p:outputLabel value="Processando a requisição, aguarde..."/>
+					</p:panelGrid>
+				</p:blockUI>
+
+				
+				<h:form id="formDetalhe">
+					<p:toolbar id="toolbar">
+						<f:facet name="left">
+		            		<p:commandButton id="exportarDetalhe" value="Exportar PDF" icon="ui-icon-copy" title="Exportar para PDF" ajax="false" immediate="true"
+		            		                 disabled="#{metaBean.listaDetalheMeta == null}">
+		            		                 
+		            			<p:dataExporter target="tabelaDetalheMetas" 
+		            			                type="pdf" 
+		            			                fileName="detalhesMetas" 
+		            			                preProcessor="#{metaBean.preProcessPDF}" 
+		            			                encoding="iso-8859-1"/>
+		            		</p:commandButton>
+						</f:facet>
+					</p:toolbar>
+					
+					<p:dataTable id="tabelaDetalheMetas"
+					             var="detalhe"
+					             value="#{metaBean.listaDetalheMeta}"
+								 rows="20" 
+								 paginator="true" 
+								 paginatorPosition="bottom" >
+					             
+						<p:column headerText="Meta" width="15%" sortBy="#{detalhe.codigo}">
+								<p:outputLabel value="#{detalhe.codigo}"/>
+						</p:column>
+						
+						<p:column headerText="Descrição" width="65%" sortBy="#{detalhe.descricao}">
+							<p:outputLabel value="#{detalhe.descricao}"/>
+						</p:column>       
+					
+						<p:column headerText="Valor" sortBy="#{detalhe.valor}">
+							<p:outputLabel value="#{detalhe.valor}"/>
+						</p:column>       
+							
+					</p:dataTable>
+					
+				</h:form>
+				
+				
+			
+			</div>
+		</ui:define>
+
+</ui:composition>

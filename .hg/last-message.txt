@@ -1,0 +1,1 @@
+*) Atualização da versao 1.8.0 do TRT10Util no arquivo POM.xml 
